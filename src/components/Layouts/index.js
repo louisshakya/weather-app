@@ -28,7 +28,11 @@ const DesignLayout = () => {
             <Title style={{ color: "white" }}>Weather App</Title>
           </Col>
           <Col span={8}>
-            <Switch onChange={onChange} />
+            <Switch
+              onChange={onChange}
+              checkedChildren="C"
+              unCheckedChildren="F"
+            />
           </Col>
           <Col span={8} style={{ marginTop: "15px" }}>
             <Search
