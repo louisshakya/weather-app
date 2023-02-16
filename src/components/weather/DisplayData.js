@@ -1,5 +1,6 @@
 import { Row, Col, Card } from "antd";
 import { ICON_MAP } from "./iconMap";
+import FahrenToCel from "fahrenheit-to-celsius";
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, { weekday: "long" });
 const hourFormatter = new Intl.DateTimeFormat(undefined, { hour: "numeric" });
@@ -8,7 +9,7 @@ const getIconUrl = (iconCode) => {
   return `icons/${ICON_MAP.get(iconCode)}.svg`;
 };
 
-const DisplayData = ({ weatherData, address }) => {
+const DisplayData = ({ weatherData, address, checked }) => {
   const { current, daily, hourly } = weatherData;
 
   return (
@@ -38,7 +39,16 @@ const DisplayData = ({ weatherData, address }) => {
               City: <strong>{address?.city}</strong>
             </p>
             <p>
-              High: <strong>{current?.highTemp}&deg;</strong>
+              High:{" "}
+              {!checked ? (
+                <strong>
+                  {current?.highTemp}&deg;{"F"}
+                </strong>
+              ) : (
+                <strong>
+                  {FahrenToCel(current?.highTemp).toPrecision(3)}&deg;{"C"}
+                </strong>
+              )}
             </p>
             <p>
               Low: <strong>{current?.lowTemp}&deg;</strong>
@@ -76,7 +86,15 @@ const DisplayData = ({ weatherData, address }) => {
                       <strong>{dayFormatter.format(day?.timestamp)}</strong>
                     </p>
                     <p>
-                      <strong>{day?.maxtemp}&deg;</strong>
+                      {!checked ? (
+                        <strong>
+                          {day?.maxtemp}&deg;{"F"}
+                        </strong>
+                      ) : (
+                        <strong>
+                          {FahrenToCel(day?.maxtemp).toPrecision(3)}&deg;{"C"}
+                        </strong>
+                      )}
                     </p>
                   </Card>
                 </div>
@@ -124,7 +142,15 @@ const DisplayData = ({ weatherData, address }) => {
                       </p>
 
                       <p>
-                        <strong>{hour?.temp}&deg;</strong>
+                        {!checked ? (
+                          <strong>
+                            {hour?.temp}&deg;{"F"}
+                          </strong>
+                        ) : (
+                          <strong>
+                            {FahrenToCel(hour?.temp).toPrecision(3)}&deg;{"C"}
+                          </strong>
+                        )}
                       </p>
                     </div>
                     <div>

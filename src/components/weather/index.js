@@ -3,7 +3,7 @@ import DisplayData from "./DisplayData";
 import { Skeleton } from "antd";
 import { getGeoLocation, getWeatherInfo } from "./Api";
 
-const Weather = ({ searchValue }) => {
+const Weather = ({ searchValue, checked }) => {
   const [weatherData, setWeatherData] = useState({});
   const [loading, setLoading] = useState(false);
   const [coordinates, setCoordinates] = useState({
@@ -39,7 +39,11 @@ const Weather = ({ searchValue }) => {
   }, [coordinates.lat, coordinates.lon]);
   return (
     <Skeleton active={true} loading={loading}>
-      <DisplayData weatherData={weatherData} address={address} />
+      <DisplayData
+        weatherData={weatherData}
+        address={address}
+        checked={checked}
+      />
     </Skeleton>
   );
 };
