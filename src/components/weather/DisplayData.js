@@ -31,7 +31,15 @@ const DisplayData = ({ weatherData, address, checked }) => {
               alt={getIconUrl(current?.iconCode)}
             />
             <span style={{ fontSize: "3rem" }}>
-              {current?.currentTemp}&deg;
+              {!checked ? (
+                <strong>
+                  {current?.currentTemp}&deg;{"F"}
+                </strong>
+              ) : (
+                <strong>
+                  {FahrenToCel(current?.currentTemp).toPrecision(3)}&deg;{"C"}
+                </strong>
+              )}
             </span>
           </Col>
           <Col span={12} style={{ fontSize: "1rem" }}>
